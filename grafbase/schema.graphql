@@ -1,0 +1,163 @@
+# # Welcome to Grafbase!
+# # Define your data models, integrate auth, permission rules, custom resolvers, search, and more with Grafbase.
+
+# # Integrate Auth
+# # https://grafbase.com/docs/auth
+# #
+# # schema @auth(providers: [{ type: oidc, issuer: "{{ env.ISSUER_URL }}" }], rules: [{ allow: private }]) {
+# #   query: Query
+# # }
+
+# # Define Data Models
+# # https://grafbase.com/docs/database
+# type Post @model @search {
+#   title: String!
+#   slug: String! @unique
+#   content: String
+#   publishedAt: DateTime
+#   comments: [Comment]
+#   likes: Int @default(value: 0)
+#   tags: [String] @length(max: 5)
+#   author: User
+# }
+
+# type Comment @model @search {
+#   post: Post!
+#   body: String!
+#   likes: Int @default(value: 0)
+#   author: User
+# }
+
+# type User @model {
+#   name: String!
+#   email: Email
+#   posts: [Post]
+#   comments: [Comment]
+
+#   # Extend models with resolvers
+#   # https://grafbase.com/docs/edge-gateway/resolvers
+#   # gravatar: URL @resolver(name: "user/gravatar")
+# }
+
+# # Start your backend
+# # https://grafbase.com/docs/cli
+# # npx grafbase dev
+
+# type Todo @model {
+#   userId:String!
+#   name:{
+#     type:String!
+#     required:true
+#     trim:true
+#     validate: [{
+#       validator: 'isLength',
+#       arguments: [3, 20],
+#       message: 'Name must be longer than 3 and 20 characters'
+#     },
+#     {
+#         validator: (value)=> {
+#           return /([a-zA-Z]* *)*/.test(value);
+#         },
+#         message: props => `${props.value} is not a valid name`
+#     }]
+#   },
+#   check:{
+#     type:Boolean!
+#     default:false
+#   }
+#   createdAt:{
+#     type:Date!
+#     default:Date.now()
+#   }
+#   updatedAt:{
+#     type:Date!
+#     default:Date.now()
+#   }
+# }
+
+# type Habit @model {
+#   userId:String!
+#   name:{
+#     type:String!
+#     required:true
+#     trim:true
+#     validate: [{
+#       validator: 'isLength',
+#       arguments: [3, 20],
+#       message: 'Name must be longer than 3 and 20 characters'
+#     },
+#     {
+#         validator: (value)=> {
+#           return /([a-zA-Z]* *)*/.test(value);
+#         },
+#         message: props => `${props.value} is not a valid name`
+#     }]
+#   },
+#   up:{
+#     type:Number!
+#     default:0
+#   },
+#   down:{
+#     type:Number!
+#     default:0
+#   }
+#   createdAt:{
+#     type:Date!
+#     default:Date.now()
+#   }
+#   updatedAt:{
+#     type:Date!
+#     default:Date.now()
+#   }
+# }
+
+# type Daily @model {
+#   userId:String!
+#   name:{
+#     type:String!
+#     required:true
+#     trim:true
+#     validate: [{
+#       validator: 'isLength',
+#       arguments: [3, 20],
+#       message: 'Name must be longer than 3 and 20 characters'
+#     },
+#     {
+#       validator: (value)=> {
+#           return /([a-zA-Z]* *)*/.test(value);
+#         },
+#         message: props => `${props.value} is not a valid name`
+#     }]
+#   }
+#   iat:{
+#     type:Date!
+#     default:Date.now()
+#   }
+#   createdAt:{
+#     type:Date!
+#     default:Date.now()
+#   }
+#   updatedAt:{
+#     type:Date!
+#     default:Date.now()
+#   }
+# }
+
+type Todo @model {
+    userId: String!
+    name: String! @length(min: 3, max: 20)
+    check: Boolean! @default(value: false)
+}
+
+type Habit @model {
+    userId: String!
+    name: String! @length(min: 3, max: 20)
+    up: Int! @default(value: 0)
+    down: Int! @default(value: 0)
+}
+
+type Daily @model {
+    userId: String!
+    name: String! @length(min: 3, max: 20)
+    iat: Date!
+}
