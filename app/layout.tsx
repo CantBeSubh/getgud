@@ -22,7 +22,10 @@ export default function RootLayout({
         <body className={inter.className}>
           <ThemeProvider>
             <Navbar />
-            {children}
+            <div className='h-screen'>
+
+              {children}
+            </div>
             <footer>
               <div className="flex items-center justify-center w-full h-16 border-t-2 border-gray-400/20">
                 <span className="text-sm ">

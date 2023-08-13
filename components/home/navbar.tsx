@@ -1,34 +1,28 @@
 import Link from 'next/link'
-import Image from 'next/image'
-
-import { auth } from '@clerk/nextjs'
-// import styles from '../styles/Navbar.module.css'
+import { ArrowUpRight } from 'lucide-react'
+import { ModeToggle } from '../mode-toggle';
 
 const Navbar = () => {
-    const { userId } = auth()
 
     return (
-        <nav
-            className='flex items-center justify-between px-8 py-4 mx-auto space-x-4 text-gray-900 bg-white shadow-sm'
-        >
-            <div className="mr-auto">
-                <Link href='/'>
-                    <Image
-                        src='/favicon.ico'
-                        width={32}
-                        height={32}
-                        alt='logo'
-                    />
-                </Link>
+        <nav className="border-b border-gray-400/20">
+            <div className="mx-auto max-w-8xl">
+                <div className="relative flex items-center h-16 px-4 sm:px-6 lg:px-8">
+                    <Link href="/" className="flex ml-4 mr-6 lg:ml-0 gap-x-2">
+                        <p className="text-4xl font-bold text-black">GET<span className="text-pink-500">GUD</span></p>
+                    </Link>
+                    <div className="flex items-center ml-auto space-x-4">
+                        <Link href="/sign-in" className="flex justify-between px-2 text-pink-500 hover:underline underline-offset-2" >
+                            LOGIN <ArrowUpRight size={16} className="inline-block ml-1" />
+                        </Link>
+                        <Link href="/sign-up"
+                            className="flex justify-between px-2 py-1 text-pink-500 border-2 border-pink-500 rounded-sm hover:bg-pink-500 hover:text-black" >
+                            SIGN UP <ArrowUpRight size={16} className="inline-block ml-1" />
+                        </Link>
+                        {/* <ModeToggle /> */}
+                    </div>
+                </div>
             </div>
-            <Link href='/timer' >Timer</Link>
-            <Link href='/about' >About</Link>
-            {
-                userId ?
-                    "Logout"
-                    :
-                    <Link href='/auth'><div>Account</div></Link>
-            }
         </nav>
 
     )
