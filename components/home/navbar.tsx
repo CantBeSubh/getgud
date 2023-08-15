@@ -9,7 +9,7 @@ const Navbar = async () => {
             <div className="mx-auto max-w-8xl">
                 <div className="relative flex items-center h-16 px-4 sm:px-6 lg:px-8">
                     <Link href="/" className="flex ml-4 mr-6 lg:ml-0 gap-x-2">
-                        <p className="text-4xl font-bold text-black">GET<span className="text-pink-500">GUD</span></p>
+                        <p className="text-4xl font-bold ">GET<span className="text-pink-500">GUD</span></p>
                     </Link>
                     <div className="flex items-center ml-auto space-x-4">
                         <Link href="/dashboard" className="flex justify-between px-2 text-pink-500 hover:underline underline-offset-2" >

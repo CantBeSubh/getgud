@@ -1,10 +1,11 @@
 'use client'
 
+import { InputForm } from "@/components/dashboard/input-form"
 import { useEffect, useState } from "react"
+import Image from 'next/image'
 
 export default function Home() {
     const [todos, setTodos] = useState<{ id: string, name: string, check: boolean, userId: string }[]>([])
-    const [name, setName] = useState('')
 
     const getTodos = async () => {
         try {
@@ -67,18 +68,23 @@ export default function Home() {
     }, [])
 
     return (
-        <main >
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-            <button onClick={() => createTodo(name)}>Create Todo</button>
-            <ul>
-                {todos && todos.map((todo) => (
-                    <li key={todo.id}
-                        onDoubleClick={() => { deleteTodo(todo.id) }}
-                    >{todo.name} - {todo.id} |
-                        <input type="checkbox" checked={todo.check} onChange={() => { updateTodo(todo.id, !todo.check) }} />
-                    </li>
-                ))}
-            </ul>
+        <main className="flex justify-between">
+            <div className="flex flex-col w-1/4 space-y-4">
+                <InputForm onSubmit={createTodo} placeholder="Todo" />
+                <InputForm onSubmit={createTodo} placeholder="Habit" />
+                <InputForm onSubmit={createTodo} placeholder="Daily" />
+            </div>
+            <div className="z-0 mx-auto">
+                <Image
+                    src="https://i.pinimg.com/originals/22/be/2d/22be2dc87badd5fd1959b4e2b28bf2e5.gif"
+                    width={1080 / 2}
+                    height={1080 / 2}
+                    alt="gif"
+                />
+            </div>
+            <div>
+
+            </div>
         </main>
     )
 }

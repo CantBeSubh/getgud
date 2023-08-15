@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
 import { ThemeProvider } from '@/provider/theme-provider'
 import Navbar from '@/components/home/navbar'
+import Footer from '@/components/home/footer'
+import { OptionProvider } from '@/provider/option-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,28 +22,16 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <ThemeProvider>
+          <div className='text-white bg-gray-700'>
             <Navbar />
             <div className='h-screen'>
-
-              {children}
+              <OptionProvider>
+                {children}
+              </OptionProvider>
             </div>
-            <footer>
-              <div className="flex items-center justify-center w-full h-16 border-t-2 border-gray-400/20">
-                <span className="text-sm ">
-                  Made with ❤️ by{" "}
-                  <a
-                    href="https://github.com/CantBeSubh"
-                    className="font-bold text-blue-500"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    @CantBeSubh
-                  </a>
-                </span>
-              </div>
-            </footer>
-          </ThemeProvider>
+            <Footer />
+          </div>
+
         </body>
       </html>
     </ClerkProvider>
