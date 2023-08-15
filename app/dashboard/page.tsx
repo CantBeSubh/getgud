@@ -3,6 +3,7 @@
 import { InputForm } from "@/components/dashboard/input-form"
 import { useEffect, useState } from "react"
 import Image from 'next/image'
+import Todos from "@/components/dashboard/todo/todos"
 
 export default function Home() {
     const [todos, setTodos] = useState<{ id: string, name: string, check: boolean, userId: string }[]>([])
@@ -68,7 +69,7 @@ export default function Home() {
     }, [])
 
     return (
-        <main className="flex justify-between">
+        <div className="flex justify-between p-8">
             <div className="flex flex-col w-1/4 space-y-4">
                 <InputForm onSubmit={createTodo} placeholder="Todo" />
                 <InputForm onSubmit={createTodo} placeholder="Habit" />
@@ -83,8 +84,8 @@ export default function Home() {
                 />
             </div>
             <div>
-
+                <Todos todos={todos} updateTodo={updateTodo} deleteTodo={deleteTodo} />
             </div>
-        </main>
+        </div>
     )
 }

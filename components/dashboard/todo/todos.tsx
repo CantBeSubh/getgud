@@ -25,23 +25,9 @@ const TodoItem = (
         }) => {
     return (
 
-        <li
-            className={`
-                relative block w-full p-0 mx-[10px] my-0 text-center list-none pointer-events-none 
-                opacity-0 translate-y-[30px] transition-all duration-200
-            `}
-        >
-            <span
-                onClick={() => updateTodo(todo.id, !todo.check)}
-                className={`
-                font-sans font-bold text-2xl uppercase inline-block relative text-[#eceece] transition-all 
-                duration-200 hover:text-[#c4c3ca] cursor-pointer
-                after:block after:absolute after:top-1/2 after:content-none after:h-[0.5vh] 
-                after:mt-[-0.5vh] after:w-0 after:l-0 after:bg-[#353746] after:opacity-80 after:transition-width after:duration-200
-                after:hover:w-full
-                `}
-            >{todo.name}</span>
-            <span onClick={() => deleteTodo(todo.id)}>X</span>
+        <li>
+            <a onClick={() => updateTodo(todo.id, !todo.check)}>{todo.name}</a>
+            <span onClick={() => deleteTodo(todo.id)} className="X">X</span>
         </li>
     )
 
@@ -74,30 +60,10 @@ const Todos = ({ todos, updateTodo, deleteTodo }: TodosProps) => {
                 Todos
             </span>
             <div
-                className={`
-                    backdrop-blur-lg fixed top-[90px] right-[165px] block
-                    w-[50px] h-[50px] p-0 m-0 z-10 overflow-hidden
-                `}
-                style={{
-                    transition: `
-                        top 350ms 1100ms cubic-bezier(0.23, 1, 0.32, 1),
-                        right 350ms 1100ms cubic-bezier(0.23, 1, 0.32, 1),
-                        transform 250ms 1100ms ease,
-                        width 650ms 400ms cubic-bezier(0.23, 1, 0.32, 1),
-                        height 650ms 400ms cubic-bezier(0.23, 1, 0.32, 1),
-                        background-color 750ms 1000ms cubic-bezier(0.23, 1, 0.32, 1);
-                    `
-                }}
+                className="todo"
+
             >
-                <ul className={`
-                    absolute top-1/2 left-0 block w-full
-                    p-0 m-0 z-5 text-center
-                `}
-                    style={{
-                        transform: 'translateY(-50%)',
-                        listStyle: 'none',
-                    }}
-                >
+                <ul className="pt-5">
                     <h1>TODOS</h1>
 
                     <div
@@ -151,3 +117,5 @@ const Todos = ({ todos, updateTodo, deleteTodo }: TodosProps) => {
         </>
     )
 }
+
+export default Todos

@@ -1,3 +1,7 @@
+.todo-icon {
+    display: none;
+}
+
 .todo-icon:checked+label,
 .todo-icon:not(:checked)+label {
     position: fixed;
@@ -263,4 +267,8 @@ span {
     color: white;
     border-color: white;
     transform: translateY(1%);
+}
+
+.X:hover {
+    color: red;
 }
