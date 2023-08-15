@@ -52,7 +52,7 @@ export function InputForm(
                                     placeholder={placeholder}
                                     {...field}
                                     className='
-                                        rounded-sm
+                                        rounded-lg
                                         border-2
                                         border-[#37394a]
                                         border-opacity-0

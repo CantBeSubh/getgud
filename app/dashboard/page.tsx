@@ -78,8 +78,8 @@ export default function Home() {
             <div className="z-0 mx-auto">
                 <Image
                     src="https://i.pinimg.com/originals/22/be/2d/22be2dc87badd5fd1959b4e2b28bf2e5.gif"
-                    width={1080 / 2}
-                    height={1080 / 2}
+                    width={600}
+                    height={600}
                     alt="gif"
                 />
             </div>

@@ -22,7 +22,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <div className='text-white bg-gray-700'>
+          <div className='text-white bg-[#1f2029]'>
             <Navbar />
             <div className='h-screen'>
               <OptionProvider>

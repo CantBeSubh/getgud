@@ -204,6 +204,7 @@
     visibility: hidden;
     transform: translateY(30px);
     transition: all 250ms linear;
+    cursor: pointer;
 }
 
 .todo ul li i {

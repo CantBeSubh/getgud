@@ -64,32 +64,22 @@ const Todos = ({ todos, updateTodo, deleteTodo }: TodosProps) => {
 
             >
                 <ul className="pt-5">
-                    <h1>TODOS</h1>
+                    <h1 className="mb-4 text-4xl">TODOS</h1>
 
-                    <div
-                        className={cn(`
-                            w-[70px] px-[4px] py-0 mx-0 my-[2px] bg-[#1f2029]
-                            rounded-sm text-[#c4c3ca] decoration-transparent border-2 border-[#313342]
-                        `,
-                            active == "due" && `text-white border-white translate-y-1`
-                        )}
+                    <button
+                        className={`btn ${active === 'due' ? 'me' : ''}`}
                         onClick={() => {
                             setActive('due')
                             setShowDue(true)
                         }}
-                    >Due</div>
-                    <div
-                        className={cn(`
-                        w-[70px] px-[4px] py-0 mx-0 my-[2px] bg-[#1f2029]
-                        rounded-sm text-[#c4c3ca] decoration-transparent border-2 border-[#313342]
-                    `,
-                            active == "done" && `text-white border-white translate-y-1`
-                        )}
+                    >Due</button>
+                    <button
+                        className={`btn ${active === 'done' ? 'me' : ''}`}
                         onClick={() => {
                             setActive('done')
                             setShowDue(false)
                         }}
-                    >Done</div>
+                    >Done</button>
                     {todos?.map(todo => {
                         if (showDue && !todo.check) {
                             return (
