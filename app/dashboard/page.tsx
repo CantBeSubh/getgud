@@ -4,9 +4,12 @@ import { InputForm } from "@/components/dashboard/input-form"
 import { useEffect, useState } from "react"
 import Image from 'next/image'
 import Todos from "@/components/dashboard/todo/todos"
+import Habits from "@/components/dashboard/habit/habits"
 
 export default function Home() {
     const [todos, setTodos] = useState<{ id: string, name: string, check: boolean, userId: string }[]>([])
+    const [habits, setHabits] = useState<{ id: string, name: string, up: number, down: number, userId: string }[]>([])
+    const [dailies, setDailies] = useState<{ id: string, name: string, iat: Date, userId: string }[]>([])
 
     const getTodos = async () => {
         try {
@@ -22,7 +25,7 @@ export default function Home() {
         try {
             const response = await fetch('/api/habit')
             const { habits } = await response.json()
-            setTodos(habits)
+            setHabits(habits)
         } catch (error) {
             console.error(error)
         }
@@ -32,7 +35,7 @@ export default function Home() {
         try {
             const response = await fetch('/api/daily')
             const { dailies } = await response.json()
-            setTodos(dailies)
+            setDailies(dailies)
         } catch (error) {
             console.error(error)
         }
@@ -99,13 +102,13 @@ export default function Home() {
         }
     }
 
-    const updateHabit = async (id: string, check: boolean) => {
+    const updateHabit = async (id: string, type: "upvote" | "downvote") => {
         try {
             await fetch('/api/habit', {
                 method: 'PUT',
                 body: JSON.stringify({
                     id,
-                    check
+                    type
                 })
             })
         } catch (error) {
@@ -179,6 +182,8 @@ export default function Home() {
 
     useEffect(() => {
         getTodos()
+        getHabits()
+        getDailies()
     }, [])
 
     return (
@@ -198,6 +203,7 @@ export default function Home() {
             </div>
             <div>
                 <Todos todos={todos} updateTodo={updateTodo} deleteTodo={deleteTodo} />
+                <Habits habits={habits} updateHabit={updateHabit} deleteHabit={deleteHabit} />
             </div>
         </div>
     )

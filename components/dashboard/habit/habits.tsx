@@ -1,7 +1,8 @@
 "use client"
 import { useOptionContext } from "@/provider/option-provider";
 import { useState } from "react";
-import './todos.css'
+import './habits.css'
+import { ArrowDown, ArrowUp } from "lucide-react";
 
 type Habit = {
     id: string;
@@ -11,23 +12,43 @@ type Habit = {
 }
 
 type HabitsProps = {
-    todos: Habit[];
-    updateTodo: (id: string, check: boolean) => void;
-    deleteTodo: (id: string) => void;
+    habits: Habit[];
+    updateHabit: (id: string, type: "upvote" | "downvote") => void,
+    deleteHabit: (id: string) => void
 }
 
-const HabitItem = (
-    { todo, updateTodo, deleteTodo }:
-        {
-            todo: Todo,
-            updateTodo: (id: string, check: boolean) => void,
-            deleteTodo: (id: string) => void
-        }) => {
-    return (
+type HabitItemProps = {
+    habit: Habit,
+    updateHabit: (id: string, type: "upvote" | "downvote") => void,
+    deleteHabit: (id: string) => void
+}
 
+const HabitItem = ({ habit, updateHabit, deleteHabit }: HabitItemProps) => {
+    const handleUp = () => {
+        updateHabit(habit.id, "upvote")
+    }
+    const handleDown = () => {
+        updateHabit(habit.id, "downvote")
+    }
+    const handleDel = () => {
+        deleteHabit(habit.id)
+    }
+
+    return (
         <li>
-            <a onClick={() => updateTodo(todo.id, !todo.check)}>{todo.name}</a>
-            <span onClick={() => deleteTodo(todo.id)} className="X">X</span>
+            <span>
+                <i onClick={handleUp} >
+                    <ArrowUp size={16} className="mr-2" />
+                </i>
+                <span>{habit.up} </span>
+            </span>
+            <a onClick={handleDel}> {habit.name} </a>
+            <span>
+                <span> -{habit.down}</span>
+                <i onClick={handleDown} >
+                    <ArrowDown size={16} className="ml-2" />
+                </i>
+            </span>
         </li>
     )
 
@@ -35,77 +56,47 @@ const HabitItem = (
 
 
 
-const Habits = ({ todos, updateTodo, deleteTodo }: HabitsProps) => {
+const Habits = ({ habits, updateHabit, deleteHabit }: HabitsProps) => {
 
     const [option, setOption] = useOptionContext();
-    const [showDue, setShowDue] = useState(true);
-    const [active, setActive] = useState<"due" | "done">('due');
 
     return (
         <>
             <input
-                className="todo-icon"
+                className="habit-icon"
                 type="checkbox"
-                id="todo-icon"
-                name="todo-icon"
-                checked={option.OptionTodo}
+                id="habit-icon"
+                name="habit-icon"
+                checked={option.OptionHabit}
                 onChange={() => setOption({
                     OptionDaily: false,
-                    OptionHabit: false,
-                    OptionTodo: !option.OptionTodo
+                    OptionHabit: !option.OptionHabit,
+                    OptionTodo: false
                 })}
             />
-            <label htmlFor="todo-icon" />
-            <span className='tooltipT'>
-                Todos
+            <label htmlFor="habit-icon" />
+            <span className='tooltipH'>
+                Habits
             </span>
-            <div
-                className="todo"
-
-            >
+            <div className="habit">
                 <ul className="pt-5">
-                    <h1 className="mb-4 text-4xl">TODOS</h1>
+                    <h1 className="mb-4 text-4xl">HABITS</h1>
+                    {habits?.map(habit => {
 
-                    <button
-                        className={`btn ${active === 'due' ? 'me' : ''}`}
-                        onClick={() => {
-                            setActive('due')
-                            setShowDue(true)
-                        }}
-                    >Due</button>
-                    <button
-                        className={`btn ${active === 'done' ? 'me' : ''}`}
-                        onClick={() => {
-                            setActive('done')
-                            setShowDue(false)
-                        }}
-                    >Done</button>
-                    {todos?.map(todo => {
-                        if (showDue && !todo.check) {
-                            return (
-                                <TodoItem
-                                    key={todo.id}
-                                    todo={todo}
-                                    updateTodo={updateTodo}
-                                    deleteTodo={deleteTodo}
-                                />
-                            )
-                        }
-                        else if (!showDue && todo.check) {
-                            return (
-                                <TodoItem
-                                    key={todo.id}
-                                    todo={todo}
-                                    updateTodo={updateTodo}
-                                    deleteTodo={deleteTodo}
-                                />
-                            )
-                        }
-                    })}
+                        return (
+                            <HabitItem
+                                key={habit.id}
+                                habit={habit}
+                                updateHabit={updateHabit}
+                                deleteHabit={deleteHabit}
+                            />
+                        )
+                    }
+                    )}
                 </ul>
             </div>
         </>
     )
 }
 
-export default Todos
+export default Habits
