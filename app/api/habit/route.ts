@@ -12,7 +12,8 @@ export async function GET(req: NextRequest) {
             edges {
                 node {
                     name
-                    check
+                    up
+                    down
                     id
                     userId
                 }
@@ -34,6 +35,7 @@ export async function GET(req: NextRequest) {
         .filter((item: { userId: string }) => item.userId == userId)
 
     // console.log(habits)
+    // console.log(userId)
     return NextResponse.json({ habits })
 }
 
@@ -53,7 +55,9 @@ export async function POST(req: NextRequest) {
         habit {
             name
             id
-            check
+            up
+            down
+            userId
         }
         }
     }
@@ -85,36 +89,57 @@ export async function POST(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest) {
-    const mutation = `
-    mutation HabitUpdate(
-        $id: ID!
-        $check: Boolean
-    ) {
-        habitUpdate(
-            by: { id: $id }
-            input: { check: $check }
+    const mutation_upvote = `
+        mutation HabitUpdate(
+            $id: ID!
         ) {
-        habit {
-            name
-            check
+            habitUpdate(
+            by: { id: $id }
+            input: { up: {increment:1}}
+            ) {
+            habit {
+                name
+                up
+                down
+                id
+                userId
+            }
             }
         }
-    }
     `
-    const { id, check } = await req.json()
-    // console.log(id, check)
+
+    const mutation_downvote = `
+        mutation HabitUpdate(
+            $id: ID!
+        ) {
+            habitUpdate(
+            by: { id: $id }
+            input: { down: {increment:1}}
+            ) {
+            habit {
+                name
+                up
+                down
+                id
+                userId
+            }
+            }
+        }
+    `
+
+    const { id, type } = await req.json()
+    console.log(id, type)
     if (!id) return NextResponse.json({ error: 'Id is required' }, { status: 400 })
-    if (check == undefined) return NextResponse.json({ error: 'Check is required' }, { status: 400 })
+    if (!type) return NextResponse.json({ error: 'Type is required' }, { status: 400 })
     const data = await fetch(url, {
         method: 'POST',
         headers: {
             'x-api-key': key,
         },
         body: JSON.stringify({
-            query: mutation,
+            query: type == "upvote" ? mutation_upvote : mutation_downvote,
             variables: {
                 id,
-                check
             }
         })
     })

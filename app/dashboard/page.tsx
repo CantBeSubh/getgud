@@ -18,6 +18,26 @@ export default function Home() {
         }
     }
 
+    const getHabits = async () => {
+        try {
+            const response = await fetch('/api/habit')
+            const { habits } = await response.json()
+            setTodos(habits)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const getDailies = async () => {
+        try {
+            const response = await fetch('/api/daily')
+            const { dailies } = await response.json()
+            setTodos(dailies)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     const createTodo = async (name: string) => {
         try {
             await fetch('/api/todo', {
@@ -64,6 +84,99 @@ export default function Home() {
         }
     }
 
+    const createHabit = async (name: string) => {
+        try {
+            await fetch('/api/habit', {
+                method: 'POST',
+                body: JSON.stringify({
+                    name
+                })
+            })
+        } catch (error) {
+            console.error(error)
+        } finally {
+            getHabits()
+        }
+    }
+
+    const updateHabit = async (id: string, check: boolean) => {
+        try {
+            await fetch('/api/habit', {
+                method: 'PUT',
+                body: JSON.stringify({
+                    id,
+                    check
+                })
+            })
+        } catch (error) {
+            console.error(error)
+        } finally {
+            getHabits()
+        }
+    }
+
+    const deleteHabit = async (id: string) => {
+        try {
+            await fetch('/api/habit', {
+                method: 'DELETE',
+                body: JSON.stringify({
+                    id
+                })
+            })
+        } catch (error) {
+            console.error(error)
+        } finally {
+            getHabits()
+        }
+    }
+
+    const createDaily = async (name: string) => {
+        try {
+            await fetch('/api/daily', {
+                method: 'POST',
+                body: JSON.stringify({
+                    name
+                })
+            })
+        } catch (error) {
+            console.error(error)
+        } finally {
+            getDailies()
+        }
+    }
+
+    const updateDaily = async (id: string, check: boolean) => {
+        try {
+            await fetch('/api/daily', {
+                method: 'PUT',
+                body: JSON.stringify({
+                    id,
+                    check
+                })
+            })
+        } catch (error) {
+            console.error(error)
+        } finally {
+            getDailies()
+        }
+    }
+
+    const deleteDaily = async (id: string) => {
+        try {
+            await fetch('/api/daily', {
+                method: 'DELETE',
+                body: JSON.stringify({
+                    id
+                })
+            })
+        } catch (error) {
+            console.error(error)
+        } finally {
+            getDailies()
+        }
+    }
+
+
     useEffect(() => {
         getTodos()
     }, [])
@@ -72,8 +185,8 @@ export default function Home() {
         <div className="flex justify-between p-8">
             <div className="flex flex-col w-1/4 space-y-4">
                 <InputForm onSubmit={createTodo} placeholder="Todo" />
-                <InputForm onSubmit={createTodo} placeholder="Habit" />
-                <InputForm onSubmit={createTodo} placeholder="Daily" />
+                <InputForm onSubmit={createHabit} placeholder="Habit" />
+                <InputForm onSubmit={createDaily} placeholder="Daily" />
             </div>
             <div className="z-0 mx-auto">
                 <Image
