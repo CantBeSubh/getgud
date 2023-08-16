@@ -9,7 +9,6 @@ import Habits from "@/components/dashboard/habit/habits"
 export default function Home() {
     const [todos, setTodos] = useState<{ id: string, name: string, check: boolean, userId: string }[]>([])
     const [habits, setHabits] = useState<{ id: string, name: string, up: number, down: number, userId: string }[]>([])
-    const [dailies, setDailies] = useState<{ id: string, name: string, iat: Date, userId: string }[]>([])
 
     const getTodos = async () => {
         try {
@@ -26,16 +25,6 @@ export default function Home() {
             const response = await fetch('/api/habit')
             const { habits } = await response.json()
             setHabits(habits)
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
-    const getDailies = async () => {
-        try {
-            const response = await fetch('/api/daily')
-            const { dailies } = await response.json()
-            setDailies(dailies)
         } catch (error) {
             console.error(error)
         }
@@ -133,65 +122,28 @@ export default function Home() {
         }
     }
 
-    const createDaily = async (name: string) => {
-        try {
-            await fetch('/api/daily', {
-                method: 'POST',
-                body: JSON.stringify({
-                    name
-                })
-            })
-        } catch (error) {
-            console.error(error)
-        } finally {
-            getDailies()
-        }
-    }
-
-    const updateDaily = async (id: string, check: boolean) => {
-        try {
-            await fetch('/api/daily', {
-                method: 'PUT',
-                body: JSON.stringify({
-                    id,
-                    check
-                })
-            })
-        } catch (error) {
-            console.error(error)
-        } finally {
-            getDailies()
-        }
-    }
-
-    const deleteDaily = async (id: string) => {
-        try {
-            await fetch('/api/daily', {
-                method: 'DELETE',
-                body: JSON.stringify({
-                    id
-                })
-            })
-        } catch (error) {
-            console.error(error)
-        } finally {
-            getDailies()
-        }
-    }
-
-
     useEffect(() => {
         getTodos()
         getHabits()
-        getDailies()
     }, [])
 
     return (
         <div className="flex justify-between p-8">
-            <div className="flex flex-col w-1/4 space-y-4">
+            <div className="flex flex-col w-1/4 space-y-4 justify-between">
                 <InputForm onSubmit={createTodo} placeholder="Todo" />
                 <InputForm onSubmit={createHabit} placeholder="Habit" />
-                <InputForm onSubmit={createDaily} placeholder="Daily" />
+                <iframe
+                    style={{ borderRadius: '12px' }}
+                    // src="https://open.spotify.com/embed/playlist/0vvXsWCC9xrXsKd4FyS8kM?utm_source=generator&theme=0"
+                    src="https://open.spotify.com/embed/playlist/37i9dQZF1DX5trt9i14X7j?utm_source=generator&theme=0"
+                    width="150%"
+                    height='380px'
+                    allow="autoplay; 
+                    clipboard-write;
+                    encrypted-media; 
+                    fullscreen; 
+                    picture-in-picture"
+                />
             </div>
             <div className="z-0 mx-auto">
                 <Image

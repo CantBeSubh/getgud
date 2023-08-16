@@ -84,6 +84,7 @@
     top: 140px;
     right: 85px;
     visibility: hidden;
+    z-index: 999;
 }
 
 .habit-icon:hover~.tooltipH {
@@ -108,6 +109,8 @@
 }
 
 .habit {
+    font-family: "Montserrat", sans-serif;
+    /* letter-spacing: .1em; */
     /* border: 1px solid white; */
     /* border-left: none; */
     position: fixed;

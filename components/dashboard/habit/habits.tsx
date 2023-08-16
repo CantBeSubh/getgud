@@ -38,7 +38,7 @@ const HabitItem = ({ habit, updateHabit, deleteHabit }: HabitItemProps) => {
         <li>
             <span>
                 <i onClick={handleUp} >
-                    <ArrowUp size={16} className="mr-2" />
+                    <ArrowUp size={20} className="mr-2" />
                 </i>
                 <span>{habit.up} </span>
             </span>
@@ -46,7 +46,7 @@ const HabitItem = ({ habit, updateHabit, deleteHabit }: HabitItemProps) => {
             <span>
                 <span> -{habit.down}</span>
                 <i onClick={handleDown} >
-                    <ArrowDown size={16} className="ml-2" />
+                    <ArrowDown size={20} className="ml-2" />
                 </i>
             </span>
         </li>
@@ -80,7 +80,7 @@ const Habits = ({ habits, updateHabit, deleteHabit }: HabitsProps) => {
             </span>
             <div className="habit">
                 <ul className="pt-5">
-                    <h1 className="mb-4 text-4xl">HABITS</h1>
+                    <h1 className="mb-4 text-4xl text-gray-300">HABITS</h1>
                     {habits?.map(habit => {
 
                         return (

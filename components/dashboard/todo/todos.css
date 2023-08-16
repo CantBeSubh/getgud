@@ -80,7 +80,7 @@
     border-radius: 6px;
     padding: 5px 0;
     position: absolute;
-    z-index: 1;
+    z-index: 999;
     top: 140px;
     right: 175px;
     visibility: hidden;
@@ -92,6 +92,7 @@
 }
 
 .todo {
+    font-family: "Montserrat", sans-serif;
     backdrop-filter: blur(10px);
     /* border: 1px solid white; */
     /* border-right: none; */

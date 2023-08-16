@@ -52,7 +52,7 @@ export function InputForm(
                                     placeholder={placeholder}
                                     {...field}
                                     className='
-                                        rounded-lg
+                                        rounded-xl
                                         border-2
                                         border-[#37394a]
                                         border-opacity-0
@@ -70,9 +70,9 @@ export function InputForm(
                         </FormItem>
                     )}
                 />
-                <Button type="submit">
-                    <Plus size={24} />
-                </Button>
+                <button type="submit" >
+                    {/* <Plus size={24} /> */}
+                </button>
             </form>
         </Form>
     )

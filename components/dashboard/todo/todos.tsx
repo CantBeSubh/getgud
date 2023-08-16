@@ -64,7 +64,7 @@ const Todos = ({ todos, updateTodo, deleteTodo }: TodosProps) => {
 
             >
                 <ul className="pt-5">
-                    <h1 className="mb-4 text-4xl">TODOS</h1>
+                    <h1 className="mb-4 text-4xl text-gray-300">TODOS</h1>
 
                     <button
                         className={`btn ${active === 'due' ? 'me' : ''}`}

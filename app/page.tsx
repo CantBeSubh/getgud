@@ -14,13 +14,12 @@ export default function Home() {
           <span
             className="text-6xl font-bold text-center text-white"
             style={{
-              background: "-webkit-linear-gradient(#FFA69E , #A83879)",
+              background: "-webkit-linear-gradient(#ffeba7 , #A83879)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
           >
             GOODBYE PROCASTINATION
-            <br />
             <br />
             HELLO PRODUCTIVITY
           </span>
